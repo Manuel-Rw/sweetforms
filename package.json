@@ -1,0 +1,36 @@
+{
+  "name": "@chronicstone/sweetforms",
+  "version": "1.0.0",
+  "description": "A package based on sweetalert2 that profides highly customizable forms promised-based forms, with features like form advanced validation, optional http request handling, and many more ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChronicStone/sweetforms.git"
+  },
+  "keywords": [
+    "SweetForms",
+    "Sweetalert2",
+    "form",
+    "multi",
+    "steps",
+    "customizable",
+    "validation"
+  ],
+  "author": "ChronicStone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChronicStone/sweetforms/issues"
+  },
+  "homepage": "https://github.com/ChronicStone/sweetforms#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "sweetalert2": "^10.15.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.22.0"
+  }
+}

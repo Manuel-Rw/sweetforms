@@ -54,10 +54,11 @@ const appendErrMessage = (fieldKey, message, errKey) => {
 }
 
 const mapFieldAttributes = ({field}) => {
-    return Object.keys(field.attributes)
+    console
+    return field.attributes ? Object.keys(field.attributes)
     .filter(attrKey => ['accept', 'autocomplete', 'autofocus', 'disabled', 'list', 'min', 'max', 'step', 'maxlength', 'pattern', 'readonly'].includes(attrKey))
     .map(attrKey => `${attrKey}="${field.attributes[attrKey]}"`)
-    .join(' ')
+    .join(' ') : ''
 }
 
 const getFieldValue = async ({field, input}) => {
@@ -352,13 +353,13 @@ const formTemplateRenderer = ({ step, itemsByLine, maxHeight, themeOptions, step
 
         else return `<div id="field_${field.key}" style="${field.fullWidth ? `grid-column: auto / span ${step.itemsByLine || itemsByLine || 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
                 <label style="margin-left:0;">${field.label} ${field.validation && field.validation.includes('required') ? '*' : ''}</label>
-                <input autocomplete="off" aria-autocomplete="off" type=${field.type} placeholder="${field.placeholder || ''}" id="swInput${field.key}" value="${field.value}" class="swInput mt-2"/>
+                <input ${mapFieldAttributes({field})} autocomplete="off" aria-autocomplete="off" type=${field.type} placeholder="${field.placeholder || ''}" id="swInput${field.key}" value="${field.value}" class="swInput mt-2"/>
             </div>`
     })}`.replaceAll('>,<', "><")
 }
 
 
-const swalStepForm = ({ httpRequest, steps, width, maxHeight, itemsByLine, themeOptions }) => {
+export const swalStepForm = ({ httpRequest, steps, width, maxHeight, itemsByLine, themeOptions }) => {
     return new Promise((resolve, reject) => {
         Swal
             .mixin({
@@ -634,9 +635,9 @@ const swalDelete = ({ requestUrl, itemName, itemType, requestType }) => {
 
 
 
-export default {
-    swalDelete,
-    // swalForm,
-    swalStepForm
-}
+// module.exports = {
+//     swalDelete,
+//     // swalForm,
+//     swalStepForm
+// }
 
