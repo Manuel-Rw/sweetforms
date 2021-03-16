@@ -112,7 +112,7 @@ SimpleForm({
       validation: ["required"],
     },
     {
-      label: "Upload an avatar",
+      label: "Upload an avatar", // File input will return object, with base64 converted file, fileFormat and fileSize.
       type: "file",
       key: "avatar",
       value: "",
