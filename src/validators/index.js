@@ -22,7 +22,9 @@ export const emailValidator = async ({field, resolve}) => {
     const setErr = (key) => [isValid, errKey] = [false, key]
 
 
-    if (!regexRules.email.test(value) && !getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>${field.label}</b> field must be a valid email`, 'email'), setErr('email')
+    if (!regexRules.email.test(value)) {
+        if(!getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>${field.label}</b> field must be a valid email`, 'email'), setErr('email')
+    }
     else if (getFieldErrDOM(field.key) && getFieldErrDOM(field.key).getAttribute('errkey') == 'email') removeErrMessage({field})
     if(resolve) resolve({field: field.key, isValid, errKey})
 }
