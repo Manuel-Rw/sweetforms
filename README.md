@@ -27,7 +27,7 @@
   - Custom input types coming soon (Data-table select, and many others)
 - Support advanced customisable validation
   - Includes basic validators : required, email, phone number. Other validators comming soon
-  - Custom validators : Define your own validators and apply them to any field. Supports assynchroneous task check
+  - Custom validators : Define your own validators and apply them to any field. Promise-based, supports async
 - Dark/Light mode
 - Supports multiple steps forms
 - Provide feedback functions that allow you to show success / error feedback after processing form content
