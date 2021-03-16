@@ -95,7 +95,7 @@ SimpleForm({
       key: "country",
       type: "select",
       value: "",
-      options: [
+      options: [ // [REQUIRED for select / radio input]
         { label: "Select a country", value: "" },
         ...[
           "France",
@@ -117,7 +117,7 @@ SimpleForm({
       key: "avatar",
       value: "",
       validation: ["required"],
-      attributes: {
+      attributes: { // [OPTION] Fields like range input, file input, ... have native attributes, such as files accepted, min / max / step for range, ... You can set these attributes using the attributes option.
         accept: "image/png, image/jpeg",
       },
     },
