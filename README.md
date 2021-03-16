@@ -20,23 +20,23 @@
 
 ## Key Features
 
-* Grid-based templating - Create your layouts
+- Grid-based templating - Create your layouts
   - High depth of forms layout customisation, based on css grid
-* High variety of fields input availables
+- A lot of input types supported
   - List of supported input types : text, textarea, email, password, number, select, radio, checkbox, file, week, month, time, datetime-local, date
-  - Custom input types coming soon (Data-table select, and others !)
-* Support advanced customisable validation
+  - Custom input types coming soon (Data-table select, and many others)
+- Support advanced customisable validation
   - Includes basic validators : required, email, phone number. Other validators comming soon
-  - Custom validators : Define your own validators and apply them to any field. Supports assynchroneous task check 
-* Dark/Light mode
-* Supports multiple steps forms
-* Provide feedback functions that allow you to show success / error feedback after processing form content
-* 100% Responsive
-* Works with VanillaJS, and any front-end javascript framework (Vue, React, Angular, ..)
+  - Custom validators : Define your own validators and apply them to any field. Supports assynchroneous task check
+- Dark/Light mode
+- Supports multiple steps forms
+- Provide feedback functions that allow you to show success / error feedback after processing form content
+- 100% Responsive
+- Works with VanillaJS, and any front-end javascript framework (Vue, React, Angular, ..)
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+[Live example here](https://stackblitz.com/edit/vue-xy9fs2?file=src/App.vue)
 
 ```bash
 # Install the package
@@ -45,50 +45,130 @@ $ npm install --save @chronicstone/sweetforms
 
 ```js
 // Import the package to your project
-import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms"
+import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms";
 
-// Call one of the provided methods to generate your form.
+// Call one of the provided methods to generate your form. 
 SimpleForm({
   themeConfig: {
-    darkMode: false
+    // [OPTION] Configure the popup's global appreaence
+    darkMode: false,
+    maxHeight: "65vh", // Max height of the inner form container
   },
-  itemsByLine: 1
-  title: "Sign in"
+  itemsByLine: 2, // [OPTION] Number of fields displayed for each line
+  title: "Sign in", // Form title
+  customValidators: {
+    // Declare here your custom validation functions
+    checkEmailAvailable: async ({ field, value, validate }) => {
+      let isAvailable = true
+      // ... Do some stuff here
+      if (isAvailable) validate({ isValid: true });
+      else
+        validate({
+          isValid: false, // [REQUIRED]
+          message: `This email address is not available`, // [REQUIRED if not valid] Displayed err message
+          force: true, // [OPTION] Overrides other validators messages
+        });
+    },
+  },
   fields: [
     {
-      label: "Email address",
-      key: "email",
-      type: "text",
-      validation: ['email']
+      label: "Email address", // [REQUIRED] Field label
+      key: "email", // [REQUIRED] Key of the field value in the returned object
+      type: "text", // [REQUIRED] Field type (See availables types above)
+      value: "", // [REQUIRED] Field value
+      placeholder: "john.doe@mail.com", // [OPTION] Placeholder value
+      validation: ["required", "email"], // [OPTION] field validators (Among included ones in package)
+      customValidation: ["checkEmailAvailable"], // [OPTION] custom field validator (Validator function must be declared on customValidators object above)
+      fullWidth: true, // [OPTION] Field will take the full line whatever items per line has been specified
     },
     {
       label: "Password",
-      key: "email",
+      key: "password",
       type: "password",
-      validation: ['email']
-    }
-  ]
-}).then(result => {
-  const {success, formData, ShowFeedback } = result
+      value: "",
+      placeholder: "••••••••••",
+      validation: ["required"],
+    },
+    {
+      label: "Password confirm", // Temporary - An built-in password confirm handler will soon be available
+      type: "password",
+      key: "confirm",
+      value: "",
+      placeholder: "••••••••••",
+      validation: ["required"],
+    },
+    {
+      label: "Country",
+      key: "country",
+      type: "select",
+      value: "",
+      options: [
+        { label: "Select a country", value: "" },
+        ...[
+          "France",
+          "Spain",
+          "England",
+          "Italy",
+          "United States",
+          "Canada",
+          "Japan",
+        ].map((opt) => {
+          return { label: opt, value: opt.toLowerCase() };
+        }),
+      ],
+      validation: ["required"],
+    },
+    {
+      label: "Upload an avatar",
+      type: "file",
+      key: "avatar",
+      value: "",
+      validation: ["required"],
+      attributes: {
+        accept: "image/png, image/jpeg",
+      },
+    },
+    {
+      label: "Gender",
+      type: "radio",
+      key: "gender",
+      validation: ["required"],
+      options: [
+        { label: "Male", value: "m" },
+        { label: "Female", value: "f" },
+      ],
+      fullWidth: true,
+    },
+  ],
+}).then((result) => {
+  const { success, formData, ShowFeedback } = result;
   // ... Do some stuff here
-  
+
   // ShowFeedback method allow you to display a feedback popup after processing the form content if needed
-  ShowFeedback({success: true, title: "Form completed !", text: "", timer: 3000})
-})
+  ShowFeedback({
+    success: true,
+    title: "Form completed !",
+    text: "",
+    timer: 3000,
+  });
+});
 ```
 
 ## Documentation and examples
 
-* Comming soon
+- [SimpleForm example](https://stackblitz.com/edit/vue-xy9fs2?file=src/App.vue)
+- SteppedForm example : coming soon,
+- Online documentation: coming soon
 
 ## Improvements roadmap
 
-- [ ]  Webpack bundle + tailwind setup
-- [ ]  Tailwind-based css rework
-- [ ]  Add support for more data-forms
-- [ ]  Add input / output parsing module for fields values. (Handling of objects / array, multi-select checkboxes, ...)
-- [ ]  Add new input formats
-- [ ]  Add new default validators
+- [ ] Fix fields keys issue (URGENT)
+- [ ] Webpack bundle + tailwind setup
+- [ ] Tailwind-based css rework
+- [ ] Add support for more data-forms
+- [ ] Add input / output parsing module for fields values. (Handling of objects / array, multi-select checkboxes, ...)
+- [ ] Add new input formats
+- [ ] Add new default validators
 
 ## Credits
 
