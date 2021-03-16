@@ -2,11 +2,11 @@ import { getFieldValue, getFieldErrDOM, appendErrMessage, removeErrMessage, getE
 
 // Required fields validator
 export const requiredValidator = async ({field, resolve}) => {
-    const input = document.getElementById(`swInput${field.key}`)
+    const input = document.getElementById(`--swInput${field.key}--`)
     const value = await getFieldValue({field, input})
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
-
+    
     if (!value) {
         if (getFieldErrDOM(field.key)) removeErrMessage({field})
         appendErrMessage(field.key, getErrMessageText({field, errType: 'required'}), 'required'), setErr('required')
@@ -16,7 +16,7 @@ export const requiredValidator = async ({field, resolve}) => {
 
 // Email validator
 export const emailValidator = async ({field, resolve}) => {
-    const input = document.getElementById(`swInput${field.key}`)
+    const input = document.getElementById(`--swInput${field.key}--`)
     const value = await getFieldValue({field, input})
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
@@ -29,9 +29,33 @@ export const emailValidator = async ({field, resolve}) => {
     if(resolve) resolve({field: field.key, isValid, errKey})
 }
 
+export const confirmPasswordValidator = async ({field, resolve}) => {
+    const input = document.getElementById(`--swInput${field.key}--`)
+    const inputConfirm = document.getElementById(`--swInput${field.key}--confirm--`) ? document.getElementById(`--swInput${field.key}--confirm--`) : null
+    const value = await getFieldValue({field, input})
+    const valueConfirm = inputConfirm ? await getFieldValue({field: {key: `${field.key}--confirm`, type: "password"}, input: inputConfirm}) : null
+
+    let [isValid, errKey] = [true, '']
+    const setErr = (key) => [isValid, errKey] = [false, key]
+
+    if(!value || !valueConfirm) console.log('MISSING VALUE', {value, valueConfirm})
+
+    if (value != valueConfirm || !value || !valueConfirm) {
+        if(!getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>Password</b> and <b>Comfirm password</b> fields are not matching, or empty`, 'passwordConfirm')
+        if(!getFieldErrDOM(`${field.key}--confirm`) || getFieldErrDOM(field.key).getAttribute('errkey' != 'passwordConfirm')) appendErrMessage(`${field.key}--confirm`, `The <b>Password</b> and <b>Comfirm password</b> fields are not matching, or empty`, 'passwordConfirm')
+        setErr('passwordConfirm')
+    }
+    else {
+        if(getFieldErrDOM(field.key) && getFieldErrDOM(field.key).getAttribute('errkey') === 'passwordConfirm') removeErrMessage({field})
+        if(getFieldErrDOM(`${field.key}--confirm`) && getFieldErrDOM(`${field.key}--confirm`).getAttribute('errkey') === 'passwordConfirm') removeErrMessage({field: {key: `${field.key}--confirm`}})
+    }
+    if(resolve) resolve({field: field.key, isValid, errKey})
+}
+
+
 // File validator - Only handles file type for now. TODO : File size
 export const fileValidator = async ({field, resolve}) => {
-    const input = document.getElementById(`swInput${field.key}`)
+    const input = document.getElementById(`--swInput${field.key}--`)
     const value = await getFieldValue({field, input})
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
@@ -47,7 +71,7 @@ export const fileValidator = async ({field, resolve}) => {
 
 // Handles custom validation functions provided by user
 export const customValidator = ({field, customValidators, resolve}) => {
-    const input = document.getElementById(`swInput${field.key}`)
+    const input = document.getElementById(`--swInput${field.key}--`)
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
 

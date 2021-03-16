@@ -41,7 +41,9 @@ export const getErrMessageText = ({field, errType}) => {
 
 export const appendErrMessage = (fieldKey, message, errKey) => {
     const wrapper = document.getElementById(`field_${fieldKey}`)
-    const input = document.getElementById(`swInput${fieldKey}`)
+    const input = document.getElementById(`--swInput${fieldKey}--`)
+
+    console.log({fieldKey, input, wrapper})
 
     const errMessage = document.createElement('div')
     errMessage.innerHTML =
@@ -58,7 +60,7 @@ export const appendErrMessage = (fieldKey, message, errKey) => {
 
 export const removeErrMessage = ({field}) => {
     getFieldErrDOM(field.key).remove()
-    document.getElementById(`swInput${field.key}`).classList.remove('swError')
+    document.getElementById(`--swInput${field.key}--`).classList.remove('swError')
 }
 
 export const mapFieldAttributes = ({field}) => {
@@ -72,7 +74,7 @@ export const getFieldValue = async ({field, input}) => {
     if(field.type == 'file') return input.files[0] ? {fileName: input.files[0].name, fileData: await blobToData(input.files[0]), fileType: input.files[0].type, fileSize: input.files[0].size} : null
     else if(field.type == 'checkbox') return input.checked
     else if(field.type == 'radio') {
-        const radioInputs = document.querySelectorAll(`#swInput${field.key}`)
+        const radioInputs = document.querySelectorAll(`#--swInput${field.key}--`)
         let selectedVal
         for(const radio of radioInputs) {
             if(radio.checked) selectedVal = radio.value
