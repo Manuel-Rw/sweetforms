@@ -36,7 +36,6 @@
 
 ## How To Use
 
-[Live example here](https://stackblitz.com/edit/vue-xy9fs2?file=src/App.vue)
 
 ```bash
 # Install the package
@@ -47,7 +46,8 @@ $ npm install --save @chronicstone/sweetforms
 // Import the package to your project
 import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms";
 
-// Call one of the provided methods to generate your form. 
+// Call one of the provided methods to generate your form.
+// (See this example live below)
 SimpleForm({
   themeConfig: {
     // [OPTION] Configure the popup's global appreaence
