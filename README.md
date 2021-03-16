@@ -156,13 +156,14 @@ SimpleForm({
 
 ## Documentation and examples
 
-- [SimpleForm example](https://stackblitz.com/edit/vue-xy9fs2?file=src/App.vue)
-- SteppedForm example : coming soon,
+- [SimpleForm example](https://stackblitz.com/edit/sweetforms-simple-example?file=src/App.vue)
+- [SteppedForm example](https://stackblitz.com/edit/sweetforms-multi-steps-example?file=index.js),
 - Online documentation: coming soon
 
 ## Improvements roadmap
 
-- [ ] Fix fields keys issue (URGENT)
+- [x] Fix fields keys issue (URGENT)
+- [x] Add support for password confirmation
 - [ ] Webpack bundle + tailwind setup
 - [ ] Tailwind-based css rework
 - [ ] Add support for more data-forms
