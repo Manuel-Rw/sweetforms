@@ -32,7 +32,7 @@
 * Supports multiple steps forms
 * Provide feedback functions that allow you to show success / error feedback after processing form content
 * 100% Responsive
-* Works with VanillaJS, and any front-end framework
+* Works with VanillaJS, and any front-end javascript framework (Vue, React, Angular, ..)
 
 ## How To Use
 
