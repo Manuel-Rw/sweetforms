@@ -82,17 +82,10 @@ SimpleForm({
       fullWidth: true, // [OPTION] Field will take the full line whatever items per line has been specified
     },
     {
+      confirmPassword: true, // On password type field, if option confirmPassword set to true, a "confirm password" field is auto-generated. It auto-includes matching & validation, so not necessary to add the 'required' validator
       label: "Password",
       key: "password",
       type: "password",
-      value: "",
-      placeholder: "••••••••••",
-      validation: ["required"],
-    },
-    {
-      label: "Password confirm", // Temporary - An built-in password confirm handler will soon be available
-      type: "password",
-      key: "confirm",
       value: "",
       placeholder: "••••••••••",
       validation: ["required"],
