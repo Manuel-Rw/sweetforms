@@ -44,10 +44,10 @@ $ npm install --save @chronicstone/sweetforms
 ```
 
 ```js
-# Import the package to your project
-$ import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms"
+// Import the package to your project
+import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms"
 
-# Call one of the provided methods to generate your form.
+// Call one of the provided methods to generate your form.
 SimpleForm({
   themeConfig: {
     darkMode: false
@@ -72,7 +72,7 @@ SimpleForm({
   const {success, formData, ShowFeedback } = result
   // ... Do some stuff here
   
-  // showFeedback method allow you to display a feedback popup after processing the form content if needed
+  // ShowFeedback method allow you to display a feedback popup after processing the form content if needed
   ShowFeedback({success: true, title: "Form completed !", text: "", timer: 3000})
 })
 ```
