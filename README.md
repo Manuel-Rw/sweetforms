@@ -13,7 +13,7 @@
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#documentation-and-examples">Documentation & Examples</a> •
+  <a href="#documentation-and-live-examples">Documentation & Live Examples</a> •
   <a href="#improvements-roadmap">Improvements roadmap</a> •
   <a href="#credits">Credits</a>
 </p>
@@ -154,7 +154,7 @@ SimpleForm({
 });
 ```
 
-## Documentation and examples
+## Documentation and live examples
 
 - [SimpleForm example](https://stackblitz.com/edit/sweetforms-simple-example?file=src/App.vue)
 - [SteppedForm example](https://stackblitz.com/edit/sweetforms-multi-steps-example?file=index.js),
