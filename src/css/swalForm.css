@@ -24,6 +24,7 @@
 }
 
 .swFormBloc::-webkit-scrollbar-thumb {
+  border-radius: 10px;
   background: rgba(0, 0, 0, 0.1);
 }
 
@@ -100,6 +101,25 @@ select {
   border: 0 !important;
   background: #fff;
   background-image: none;
+}
+
+select::-webkit-scrollbar {
+  width: 10px;
+  height: 14px;
+}
+
+select::-webkit-scrollbar-track {
+  border: transparent;
+  background-color: transparent;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: rgba(211, 211, 211, 0.733);
+  border: transparent;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background: rgba(115, 103, 240, 0.4);
 }
 
 /* Remove IE arrow */
@@ -434,6 +454,10 @@ input[type="radio"]:checked:after {
 .darkMode select {
   background: #10163a;
   color: #fff;
+}
+
+.darkMode select::-webkit-scrollbar-thumb {
+  background-color: rgba(211, 211, 211, 0.103);
 }
 
 .darkMode .select::after {
