@@ -53,7 +53,7 @@ SimpleForm({
     darkMode: false
   },
   itemsByLine: 1
-  title: "Sign in
+  title: "Sign in"
   fields: [
     {
       label: "Email address",
