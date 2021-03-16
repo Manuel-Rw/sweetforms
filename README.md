@@ -2,7 +2,7 @@
   <a><img src="https://github.com/ChronicStone/sweetforms/blob/main/logo_sweetforms.svg" alt="SweetForms" width="200"></a>
 </h1>
 
-<h4 align="center">A package based on  <a href="https://github.com/sweetalert2/sweetalert2" target="_blank">Sweetalert2</a>. that profides highly customizable promised-based popup forms, with features like form advanced validation, optional http request handling, multiple-steps, and many more !</h4>
+<h4 align="center">A package based on  <a href="https://github.com/sweetalert2/sweetalert2" target="_blank">Sweetalert2</a>. that provides highly customizable promised-based popup forms, with features like form advanced validation, optional http request handling, multiple-steps, and many more !</h4>
 
 <p align="center">
   <a href="https://badge.fury.io/js/%40chronicstone%2Fsweetforms">
