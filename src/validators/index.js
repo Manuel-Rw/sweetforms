@@ -41,8 +41,8 @@ export const confirmPasswordValidator = async ({field, resolve}) => {
     if(!value || !valueConfirm) console.log('MISSING VALUE', {value, valueConfirm})
 
     if (value != valueConfirm || !value || !valueConfirm) {
-        if(!getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>Password</b> and <b>Comfirm password</b> fields are not matching, or empty`, 'passwordConfirm')
-        if(!getFieldErrDOM(`${field.key}--confirm`) || getFieldErrDOM(field.key).getAttribute('errkey' != 'passwordConfirm')) appendErrMessage(`${field.key}--confirm`, `The <b>Password</b> and <b>Comfirm password</b> fields are not matching, or empty`, 'passwordConfirm')
+        if(!getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>${field.label.toLowerCase()}</b> and <b>Comfirm ${field.label.toLowerCase()}</b> fields are not matching, or empty`, 'passwordConfirm')
+        if(!getFieldErrDOM(`${field.key}--confirm`) || getFieldErrDOM(field.key).getAttribute('errkey' != 'passwordConfirm')) appendErrMessage(`${field.key}--confirm`, `The <b>${field.label.toLowerCase()}</b> and <b>Comfirm ${field.label.toLowerCase()}</b> fields are not matching, or empty`, 'passwordConfirm')
         setErr('passwordConfirm')
     }
     else {

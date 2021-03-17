@@ -12,7 +12,7 @@ const baseInput = ({field, itemsByLine, step}) => {
 
 const passwordInput = ({field, itemsByLine, step}) => {
     const input =
-    `<div id="field_${field.key}" style="${field.showConfirmPassword ? `grid-column: 1 / 4` : ''} ${field.fullWidth ? `grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
+    `<div id="field_${field.key}" style="${field.showConfirmPassword ? `grid-column: 1 / 2` : ''} ${field.fullWidth ? `grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
         <label style="margin-left:0;">${field.label} ${field.validation && field.validation.includes('required') ? '*' : ''}</label>
         <input autocomplete="off" aria-autocomplete="off" type="password" placeholder="••••••••••" id="--swInput${field.key}--" value="${field.value}" class="swInput mt-2"/>
     </div>
