@@ -109,7 +109,6 @@ export const SteppedForm = ({ steps, width, maxHeight, itemsByLine, themeOptions
                 }
             }
         })).then((result) => {
-            console.log({innerRes: result})
             if(result.dismiss) {
                 resolve({success: false, messsage: "Aborted by user"})
                 return

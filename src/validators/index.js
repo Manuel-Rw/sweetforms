@@ -35,11 +35,8 @@ export const confirmPasswordValidator = async ({field, resolve}) => {
     const value = await getFieldValue({field, input})
     const valueConfirm = inputConfirm ? await getFieldValue({field: {key: `${field.key}--confirm`, type: "password"}, input: inputConfirm}) : null
 
-    console.log({valueConfirm, value, inputConfirm, input})
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
-
-    if(!value || !valueConfirm) console.log('MISSING VALUE', {value, valueConfirm})
 
     if (value != valueConfirm || !value || !valueConfirm) {
         if(!getFieldErrDOM(field.key)) appendErrMessage(field.key, `The <b>${field.label.toLowerCase()}</b> and <b>Comfirm ${field.label.toLowerCase()}</b> fields are not matching, or empty`, 'passwordConfirm')

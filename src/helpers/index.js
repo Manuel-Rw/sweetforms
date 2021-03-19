@@ -43,8 +43,6 @@ export const appendErrMessage = (fieldKey, message, errKey) => {
     const wrapper = document.getElementById(`field_${fieldKey}`)
     const input = document.getElementById(`--swInput${fieldKey}--`)
 
-    console.log({fieldKey, input, wrapper})
-
     const errMessage = document.createElement('div')
     errMessage.innerHTML =
         `<div id="err_${fieldKey}" class="swErrAlert">
@@ -94,7 +92,6 @@ export const getFieldValue = async ({field, input}) => {
         } else {
 
         }
-        console.log({input, val: input.getAttribute('value')})
         return input.getAttribute('value')
     }
     else return input.value

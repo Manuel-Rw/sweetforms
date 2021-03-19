@@ -51,7 +51,6 @@ export const formDidOpen = async ({ fields, customValidators }) => {
     fields.map((field) => `#--swInput${field.key}--`)
   );
   inputs.forEach((input) => {
-    console.log({ inputId: input.id });
     let field = fields.find((field) =>
       input.id.includes(`--swInput${field.key}--`)
     );

@@ -8,7 +8,6 @@ import {
 } from "../helpers/index.js";
 
 export const initDataTable = async ({ field }) => {
-  console.log("## DATA-TABLE-INIT");
   const headCols = field.columns.map((col) =>
     document.getElementById(`${field.key}__headerCol__${col.key}`)
   );
@@ -105,7 +104,6 @@ export const initDataTable = async ({ field }) => {
         JSON.parse(row.getAttribute("row-value").replaceAll(`'`, `"`)),
         false,
       ];
-      console.log({ rowVal });
       Object.keys(rowVal).forEach((key) => {
         if (
           rowVal[key]
@@ -133,7 +131,6 @@ export const initDataTable = async ({ field }) => {
 
       const sortMode = column.getAttribute("sort");
       const sortKey = column.getAttribute("column-key");
-      console.log({ sortMode, sortKey });
       let elements = Array.prototype.slice.call(
         document.querySelectorAll(`.${field.key}__row_item`)
       );
