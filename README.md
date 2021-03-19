@@ -39,12 +39,12 @@
 
 ```bash
 # Install the package
-$ npm install --save @sweetalert2/sweetforms
+$ npm install --save @chronicstone/sweetforms
 ```
 
 ```js
 // Import the package to your project
-import { SimpleForm, SteppedForm } from "@sweetalert2/sweetforms";
+import { SimpleForm, SteppedForm } from "@chronicstone/sweetforms";
 
 // Call one of the provided methods to generate your form.
 // (See this example live below)
