@@ -81,6 +81,9 @@ export const getFieldValue = async ({field, input}) => {
         }
         return selectedVal || ""
     }
+    else if(field.type == 'data-table') {
+        return null
+    }
     else return input.value
 }
 

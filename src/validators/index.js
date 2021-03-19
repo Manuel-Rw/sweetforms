@@ -35,6 +35,7 @@ export const confirmPasswordValidator = async ({field, resolve}) => {
     const value = await getFieldValue({field, input})
     const valueConfirm = inputConfirm ? await getFieldValue({field: {key: `${field.key}--confirm`, type: "password"}, input: inputConfirm}) : null
 
+    console.log({valueConfirm, value, inputConfirm, input})
     let [isValid, errKey] = [true, '']
     const setErr = (key) => [isValid, errKey] = [false, key]
 

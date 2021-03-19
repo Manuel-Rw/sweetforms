@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 import './css/swalForm.css'
+import './css/components/table.css'
 
 import { swalBase } from "./helpers/index.js"
 import { formTemplateRenderer } from "./templateRenderer/index.js"

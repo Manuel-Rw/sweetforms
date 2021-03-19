@@ -1,0 +1,98 @@
+@import "../config/variables";
+.limiter {
+    width: 100%;
+}
+.data-table {
+    font-size: 13px;
+    .table-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: grid;
+        background: $primary;
+        .column {
+            padding: 1em;
+            grid-column: auto / span 4;
+            border-right: 1px solid rgba(255, 255, 255, 0.123);
+            &:hover {
+                background: rgba($grey, 0.1);
+            }
+            &.selectorCol {
+                border: none;
+                cursor: default;
+                grid-column: auto / span 1;
+            }
+        }
+    }
+
+    .table-content {
+        &::-webkit-scrollbar {
+            width: 5px;
+            background: transparent;
+            cursor: pointer;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgba(128, 128, 128, 0.11);
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: $primary;
+        }
+        overflow-y: scroll;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border: 1px solid $grey;
+        .table-row {
+            transition: transform .4s ease-in-out;
+            will-change: all;
+            display: grid;
+            &.sorting {
+                transform: scaleY(0)
+            }
+            &:hover {
+                background: rgba(63, 63, 63, 0.123);
+            }
+            .column {
+                padding: 1em;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: block;
+                overflow: hidden;
+                grid-column: auto / span 4;
+                &.selectorCol {
+                    padding: 1em 1em 1em 1em;
+                    grid-column: auto / span 1;
+                }
+            }
+            &:nth-child(2n + 1) {
+              background: rgba($grey, .25);
+              &:hover {
+                background: rgba(63, 63, 63, 0.123);
+              }
+              &.selectedRow {
+                background: rgba($primary, .2);
+                color: black;
+            }
+            }
+            &:last-child {
+                border: none;
+            }
+            &.selectedRow {
+                background: rgba($primary, .2);
+                color: black;
+            }
+        }
+        
+    }
+
+    .table-row:last-child {
+        border-bottom-left-radius: 10px;
+    }
+}
+
+.hideRow {
+    transform: scaleY(0);
+    height: 0;
+}
