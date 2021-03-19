@@ -35,6 +35,41 @@
     input[type="checkbox"] {
         filter: invert(20%) hue-rotate(30deg) brightness(1.3);
     }
+
+    $progressFill: rgba($primary, .4);
+    $progressBg: $primary;
+    progress {
+        background-color:$progressFill;
+        color: $progressBg;
+        position: relative;
+        border-radius: 10px;
+        width: 80%;
+        height: 10px;
+        &[value]::-webkit-progress-bar{
+            border-radius: 10px;
+            background-color:$progressFill;
+        }
+
+        &[value]::-webkit-progress-value{
+            border-radius: 10px;
+            background-color: $progressBg;
+        }
+        
+        &[value]::-moz-progress-bar{ 
+            border-radius: 10px;
+            background-color: $progressBg;
+        }	
+        &:hover::before {
+            left: 0;
+            width: 100%;
+            position: absolute;
+            color: black;
+            font-size: 9px;
+            top: 12px;
+            // background: blue;
+            content: attr(value) ' / ' attr(max)
+        }
+    }
 }
 
 .actionBtn {
