@@ -5,8 +5,8 @@
 .data-table {
     font-size: 13px;
     .table-header {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         display: grid;
         background: $primary;
         .column {
@@ -17,7 +17,6 @@
                 background: rgba($grey, 0.1);
             }
             &.selectorCol {
-                border: none;
                 cursor: default;
                 grid-column: auto / span 1;
             }
@@ -41,13 +40,14 @@
             background: $primary;
         }
         overflow-y: scroll;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
         border: 1px solid $grey;
         .table-row {
-            transition: transform .4s ease-in-out;
+            transition: transform .3s ease-in-out;
             will-change: all;
             display: grid;
+            border-bottom: 1px solid rgba($grey, .7);
             &.sorting {
                 transform: scaleY(0)
             }
@@ -65,34 +65,93 @@
                     padding: 1em 1em 1em 1em;
                     grid-column: auto / span 1;
                 }
+                &:focus-within::before {
+                    position:absolute;
+                    content: attr(data-value);
+                    padding: .5em;
+                    background: $grey;
+                    border-radius: 5px;
+
+                }
             }
-            &:nth-child(2n + 1) {
-              background: rgba($grey, .25);
-              &:hover {
-                background: rgba(63, 63, 63, 0.123);
-              }
-              &.selectedRow {
-                background: rgba($primary, .2);
-                color: black;
-            }
-            }
+
             &:last-child {
                 border: none;
             }
             &.selectedRow {
-                background: rgba($primary, .2);
-                color: black;
+                color:$primary;
+                background:rgba(217, 189, 250, 0.1)
             }
         }
         
     }
 
     .table-row:last-child {
-        border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 5px;
     }
 }
 
 .hideRow {
     transform: scaleY(0);
     height: 0;
+}
+
+
+.pagination-bloc {
+    justify-content: center;
+ul {
+    transform: scale(.5);
+    width: fit-content;
+    position: relative;
+    background: #fff;
+    display: flex;
+    border-radius: 50px;
+    margin:0;
+  }
+  
+  ul li {
+    list-style: none;
+    line-height: 50px;
+    margin: 0 5px;
+  }
+  
+  ul li.pageNumber {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+  
+  ul li a {
+    display: block;
+    text-decoration: none;
+    color: #383838;
+    font-weight: 500;
+    border-radius: 50%;
+  }
+  
+  ul li.pageNumber:hover a,
+  ul li.pageNumber.active a {
+    background: $primary;
+    color: #fff;
+  }
+
+
+  ul li:first-child {
+    margin-right: 30px;
+    font-weight: 700;
+    font-size: 20px;
+    transition: .2s ease-in-out all;
+  }
+
+  .prev:hover, .next:hover {
+      color: $primary;
+  }
+
+  
+  ul li:last-child {
+    margin-left: 30px;
+    font-weight: 700;
+    font-size: 20px;
+  }
 }

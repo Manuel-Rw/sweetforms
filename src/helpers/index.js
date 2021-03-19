@@ -82,7 +82,20 @@ export const getFieldValue = async ({field, input}) => {
         return selectedVal || ""
     }
     else if(field.type == 'data-table') {
-        return null
+        if(field.selectMode == 'multiple') {
+            const checkboxes = document.querySelectorAll(`#${field.key}__formDataSelectRow`)
+            let result = []
+            checkboxes.forEach(checkbox => {
+                const rowValue = JSON.parse(checkbox.parentElement.parentElement.getAttribute('row-value').replaceAll(`'`, `"`))
+                if(checkbox.checked) result.push(rowValue)
+            })
+            if(result.length) return result
+            else return ""
+        } else {
+
+        }
+        console.log({input, val: input.getAttribute('value')})
+        return input.getAttribute('value')
     }
     else return input.value
 }

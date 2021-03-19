@@ -31,6 +31,10 @@
     &::-webkit-scrollbar-thumb:hover {
         background: $primary;
     }
+
+    input[type="checkbox"] {
+        filter: invert(20%) hue-rotate(30deg) brightness(1.7);
+    }
 }
 
 .actionBtn {

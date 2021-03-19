@@ -1,5 +1,6 @@
 import { mapFieldAttributes } from '../helpers/index.js'
-
+// import { fetchData } from '../utils/index.js'
+ 
 const baseInput = ({field, itemsByLine, step}) => {
     const input =
     `<div id="field_${field.key}" style="${field.fullWidth ? `grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
@@ -11,7 +12,6 @@ const baseInput = ({field, itemsByLine, step}) => {
 }
 
 const passwordInput = ({field, itemsByLine, step}) => {
-    console.log({field})
     const input =
     `<div id="field_${field.key}" style="${field.showConfirmPassword ? `grid-column: 1 / 2` : ''} ${field.fullWidth ? `grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
         <label style="margin-left:0;">${field.label} ${field.validation && field.validation.includes('required') ? '*' : ''}</label>
@@ -66,22 +66,40 @@ const rangeInput = ({field, itemsByLine, step}) => {
 
 // CUSTOM DATA FORMATS
 
-const dataTable = ({field, itemsByLine, step}) => {
+const mapPagination = ({rowsPerPage, totalRows, field}) => {
+    const pages = []
+    while(pages.length < Math.ceil(totalRows / rowsPerPage)) pages.push({ id: `${field.key}__dataTablePaginationItem`, pageNumber: pages.length + 1})
+    return '' + 
+    `<ul class="pagination">
+        <li><a href="#" class="prev" id="${field.key}__dataTablePaginationPrev">< Prev</a></li>
+        
+        ${pages.map((page) => {
+            return ''+
+            `<li id="${page.id}"  page-nb="${page.pageNumber}" class="pageNumber ${page.pageNumber == 1 ? 'active' : ''}"><a href="#">${page.pageNumber}</a></li>`
+        }).join('')}
+     
+        <li><a href="#" class="next" id="${field.key}__dataTablePaginationNext">Next ></a></li>
+    </ul>`
+}
+const dataTable = ({field, itemsByLine, step, cellRenderers}) => {
     const dataTable =
     `<div id="field_${field.key}" style="grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2}; width: auto; display: flex;flex-direction:column; gap: .4em;align-items:center;justify-content: space-between" class="fieldBloc">
-        <div style="width: 100%;display: flex;justify-content: space-between;align-items:center;">
-            <label style="margin-left:0; font-size: 18px;text-transform: uppercase;display: flex;align-items:center;gap: .5em;"> <i class="far fa-list-alt"></i> <span>${field.label}  ${field.validation && field.validation.includes('required') ? '*' : ''}</span></label>
-            <input id="${field.key}__search__input" placeholder="Search ..." class="swInput" style="max-width: 250px;height: 35px;" onfocusin="document.getElementById('${field.key}__search__input').classList.add('swFocus')" onfocusout="document.getElementById('${field.key}__search__input').classList.remove('swFocus')"/>
+        <div style="width: 100%;display: flex;justify-content: space-between;align-items:center;padding: 1em 0 0.6em 0;">
+            <div style="display: flex; flex-direction: column; justify-content: space-between;gap: .5em;">
+                <label style="margin-left:0; font-size: 18px;text-transform: uppercase;display: flex;align-items:center;gap: .5em;"> <i class="far fa-list-alt"></i> <span>${field.label}  ${field.validation && field.validation.includes('required') ? '*' : ''}</span></label>
+                <div style="width: 100%;margin-left: 0;text-align:left; font-size: 12px;text-transform: uppercase;">Selected : <span id="${field.key}__dataTableSelectedNb">0</span> / ${field.data.length}</div>
+            </div>
+            <input id="${field.key}__search__input" placeholder="Search ..." class="swInput" style="max-width: 250px;height: 40px;margin-top: 0 !important;" onfocusin="document.getElementById('${field.key}__search__input').classList.add('swFocus')" onfocusout="document.getElementById('${field.key}__search__input').classList.remove('swFocus')"/>
         </div>
         <div id="--swInput${field.key}--" value="${field.data && ['object', 'array'].includes(typeof data) ? JSON.stringify(data): field.selectMode == 'multiple' ? '[]' : '{}'}" class="limiter">
             <div class="data-table" style="display: grid; grid-template-columns: repeat(1, 1fr);">
-                <div class="table-header" style="grid-template-columns: repeat(${field.columns.length * 4 + 1}, 1fr)">
+                <div class="table-header" style="grid-template-columns: repeat(${field.gridSize ? field.gridSize + 1 : field.columns.length * 4 + 1}, 1fr);">
                     <div class="column selectorCol">
                         ${field.selectMode == 'multiple' ? `<input id="${field.key}__tableGlobalSelector" type="checkbox"/>` : ''}
                     </div>
                     ${field.columns.map(col => {
                         return '' + `
-                        <div id="${field.key}__headerCol__${col.key}" column-key="${col.key}" sort=""  class="column">
+                        <div id="${field.key}__headerCol__${col.key}" column-key="${col.key}" sort=""  class="column" ${col.colSize ? `style="grid-column: auto / span ${col.colSize}"` : ''}>
                             <div style="display: flex;align-items:center;justify-content:center;gap: .5em;color: #fff;cursor:pointer;">
                                 ${col.label}
                                 <i class="fas fa-sort"></i>
@@ -90,20 +108,20 @@ const dataTable = ({field, itemsByLine, step}) => {
                     }).join('')}
                 </div>
                 
-                <div class="table-content" style="max-height: ${field.tableMaxHeight || '200px'};grid-template-rows: auto auto 0px;">
+                <div class="table-content" style="max-height: ${field.tableMaxHeight || '200px'};min-height: 100px;grid-template-rows: auto auto 0px;">
 
                     ${field.data.map(item => {
                         return '' + `
-                        <div class="table-row ${field.key}__row_item" row-value="${JSON.stringify(item).replaceAll(`"`, `'`)}" style="grid-template-columns: repeat(${field.columns.length * 4 + 1}, 1fr);">
+                        <div class="table-row ${field.key}__row_item" row-value="${JSON.stringify(item).replaceAll(`"`, `'`)}" style="grid-template-columns: repeat(${field.gridSize ? field.gridSize + 1 : field.columns.length * 4 + 1}, 1fr);">
                             <div class="column selectorCol">
                                 <input value="${JSON.stringify(item).replaceAll(`"`, `'`)}" id="${field.key}__formDataSelectRow" name="${field.key}__formDataSelect" type="${field.selectMode == 'multiple' ? 'checkbox' : 'radio'}"/>
                             </div>
-                            ${Object.keys(item).map(key => {
-                                if(field.columns.find(col => col.key == key)) {
+                            ${field.columns.map(col => {
+                                if(col.key  in item) {
                                     return '' + 
                                     `
-                                    <div class="column" data-title="${field.columns.find(col => col.key == key).label}">
-                                        ${item[key]}
+                                    <div class="column" data-title="${col.label}" data-value="${item[col.key]}" ${col.colSize ? `style="grid-column: auto / span ${col.colSize}"` : ''}>
+                                        ${col.cellRenderer && cellRenderers[col.cellRenderer] ? cellRenderers[col.cellRenderer](item[col.key]) : item[col.key]}
                                     </div>
                                     `
                                 }
@@ -116,6 +134,10 @@ const dataTable = ({field, itemsByLine, step}) => {
         </div>
     </div>
     `
+
+    /*<div class="pagination-bloc">
+                ${mapPagination({rowsPerPage: 20, totalRows: field.data.length, field})}
+                </div> */
     return dataTable
 }
 
@@ -159,7 +181,7 @@ const extraStylesheetsRenderer = () => {
 }
 
 
-export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, stepper}) => {
+export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, stepper, cellRenderers}) => {
     //  ${step.title ? `<div style="${themeOptions && themeOptions.darkMode ? 'color:#fff;' : ''}" class="w-full text-center">${step.title}</div>` : ''}
     let formFields = step && step.fields ? step.fields : fields
 
@@ -172,7 +194,7 @@ export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, s
             else if (field.type === 'range') return rangeInput({field, itemsByLine, step})
             else if (field.type === 'radio') return radioInput({field, itemsByLine, step})
             else if (field.type === 'password') return passwordInput({field, itemsByLine, step})
-            else if (field.type === 'data-table') return dataTable({field, itemsByLine, step})
+            else if (field.type === 'data-table') return dataTable({field, itemsByLine, step, cellRenderers})
             else return baseInput({field, itemsByLine, step})
         }).join('')}
     </div>`
