@@ -11,7 +11,7 @@ import { formDidRender, formDidOpen, formPreCheck } from "./formHandler/index.js
 /* eslint-disable no-useless-escape  */
 /* eslint-disable no-async-promise-executor  */
 
-export const SimpleForm = ({ fields, title, width, maxHeight, itemsByLine, themeOptions, customValidators, cellRenderers }) => {
+export const SimpleForm = ({ fields, title, width, maxHeight, itemsByLine, themeOptions, customValidators, customCellRenderers }) => {
     return new Promise((resolve) => {
         Swal
         .fire({
@@ -20,7 +20,7 @@ export const SimpleForm = ({ fields, title, width, maxHeight, itemsByLine, theme
             title: `<span style="${themeOptions && themeOptions.darkMode ? 'color: #fff;' : ''}">${title || 'Simple form'}</span>`,
             focusConfirm: false,
             confirmButtonText: "Submit",
-            html: formTemplateRenderer({ fields, itemsByLine, maxHeight, themeOptions, cellRenderers }),
+            html: formTemplateRenderer({ fields, itemsByLine, maxHeight, themeOptions, customCellRenderers }),
             didRender: () => {
                 return formDidRender({fields: fields, customValidators})
             },

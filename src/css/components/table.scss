@@ -3,7 +3,8 @@
     width: 100%;
 }
 .data-table {
-    font-size: 13px;
+    font-size: 12px;
+
     .table-header {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -13,6 +14,8 @@
             padding: 1em;
             grid-column: auto / span 4;
             border-right: 1px solid rgba(255, 255, 255, 0.123);
+            display: grid;
+                place-items:center;
             &:hover {
                 background: rgba($grey, 0.1);
             }
@@ -24,6 +27,7 @@
     }
 
     .table-content {
+        
         &::-webkit-scrollbar {
             width: 5px;
             background: transparent;
@@ -52,13 +56,14 @@
                 transform: scaleY(0)
             }
             &:hover {
-                background: rgba(63, 63, 63, 0.123);
+                background: rgb(222, 226, 228);
             }
             .column {
                 padding: 1em;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                display: block;
+                display: grid;
+                place-items:center;
                 overflow: hidden;
                 grid-column: auto / span 4;
                 &.selectorCol {

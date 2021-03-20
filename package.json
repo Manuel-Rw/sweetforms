@@ -1,6 +1,6 @@
 {
   "name": "@sweetalert2/sweetforms",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A package based on sweetalert2 that provides highly customizable forms promised-based forms, with features like form advanced validation, custom data formats, dark mode, multi steps forms, and many more ",
   "main": "src/index.js",
   "scripts": {},

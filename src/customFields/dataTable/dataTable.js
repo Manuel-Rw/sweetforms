@@ -5,7 +5,7 @@ import {
   removeErrMessage,
   getErrMessageText,
   regexRules,
-} from "../helpers/index.js";
+} from "../../helpers/index.js";
 
 export const initDataTable = async ({ field }) => {
   const headCols = field.columns.map((col) =>

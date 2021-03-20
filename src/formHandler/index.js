@@ -7,7 +7,7 @@ import {
   fileValidator,
 } from "../validators/index.js";
 
-import { initDataTable } from "../customFields/dataTable.js"
+import { initDataTable } from "../customFields/dataTable/dataTable.js"
 
 // Finishing the form setup on render
 export const formDidRender = async ({ fields }) => {

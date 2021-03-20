@@ -1,6 +1,6 @@
 import { mapFieldAttributes } from '../helpers/index.js'
 // import { fetchData } from '../utils/index.js'
- 
+ import { baseCellRenderers } from '../customFields/dataTable/cellRenderers.js'
 const baseInput = ({field, itemsByLine, step}) => {
     const input =
     `<div id="field_${field.key}" style="${field.fullWidth ? `grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2};` : ''}width: auto;text-align:left;" class="fieldBloc">
@@ -81,7 +81,8 @@ const mapPagination = ({rowsPerPage, totalRows, field}) => {
         <li><a href="#" class="next" id="${field.key}__dataTablePaginationNext">Next ></a></li>
     </ul>`
 }
-const dataTable = ({field, itemsByLine, step, cellRenderers}) => {
+const dataTable = ({field, itemsByLine, step, customCellRenderers}) => {
+    console.log({baseCellRenderers, customCellRenderers})
     const dataTable =
     `<div id="field_${field.key}" style="grid-column: auto / span ${step && step.itemsByLine ? step.itemsByLine : itemsByLine ? itemsByLine : 2}; width: auto; display: flex;flex-direction:column; gap: .4em;align-items:center;justify-content: space-between" class="fieldBloc">
         <div style="width: 100%;display: flex;justify-content: space-between;align-items:center;padding: 1em 0 0.6em 0;">
@@ -121,7 +122,10 @@ const dataTable = ({field, itemsByLine, step, cellRenderers}) => {
                                     return '' + 
                                     `
                                     <div class="column" data-title="${col.label}" data-value="${item[col.key]}" ${col.colSize ? `style="grid-column: auto / span ${col.colSize}"` : ''}>
-                                        ${col.cellRenderer && cellRenderers[col.cellRenderer] ? cellRenderers[col.cellRenderer](item[col.key]) : item[col.key]}
+                                        ${col.customCellRenderer && customCellRenderers[col.customCellRenderer] ?  customCellRenderers[col.customCellRenderer]({value: item[col.key], column: col}) 
+                                            : col.cellRenderer && baseCellRenderers[col.cellRenderer] ? baseCellRenderers[col.cellRenderer]({value: item[col.key], column: col}) 
+                                            : item[col.key]
+                                        }
                                     </div>
                                     `
                                 }
@@ -181,7 +185,7 @@ const extraStylesheetsRenderer = () => {
 }
 
 
-export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, stepper, cellRenderers}) => {
+export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, stepper, customCellRenderers}) => {
     //  ${step.title ? `<div style="${themeOptions && themeOptions.darkMode ? 'color:#fff;' : ''}" class="w-full text-center">${step.title}</div>` : ''}
     let formFields = step && step.fields ? step.fields : fields
 
@@ -194,7 +198,7 @@ export const formTemplateRenderer = ({step, fields, itemsByLine, themeOptions, s
             else if (field.type === 'range') return rangeInput({field, itemsByLine, step})
             else if (field.type === 'radio') return radioInput({field, itemsByLine, step})
             else if (field.type === 'password') return passwordInput({field, itemsByLine, step})
-            else if (field.type === 'data-table') return dataTable({field, itemsByLine, step, cellRenderers})
+            else if (field.type === 'data-table') return dataTable({field, itemsByLine, step, customCellRenderers})
             else return baseInput({field, itemsByLine, step})
         }).join('')}
     </div>`
