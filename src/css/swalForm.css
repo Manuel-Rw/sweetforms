@@ -617,7 +617,7 @@ input[type="radio"]:checked:after {
   z-index: -1;
 }
 
-.progress {
+.progress-container .progress {
   background-color: #7367f0;
   position: absolute;
   top: 50%;
@@ -631,7 +631,7 @@ input[type="radio"]:checked:after {
   transition: 0.4s ease;
 }
 
-.circle {
+.progress-container .circle {
   background-color: #fff;
   color: #999;
   border-radius: 50%;
@@ -651,24 +651,24 @@ input[type="radio"]:checked:after {
   transition: 0.4s ease;
 }
 
-.circle.active {
+.progress-container .circle.active {
   color: #7367f0;
   border-color: #7367f0;
 }
 
-.circle.error {
+.progress-container .circle.error {
   color: #fff;
   border-color: #ea5455;
   background: #ea5455;
 }
 
-.circle.done {
+.progress-container .circle.done {
   background: #7367f0;
   border-color: #7367f0;
   color: #fff;
 }
 
-.btn {
+.swal2-container .btn {
   background-color: #7367f0;
   color: #fff;
   border: 0;
